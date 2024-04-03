@@ -11,12 +11,12 @@ ZITADEL_IMAGE ?= zitadel:local
 compile: core_build console_build compile_pipeline
 
 .PHONY: docker_image
-docker_image: compile
-	DOCKER_BUILDKIT=1 docker build -f build/Dockerfile -t $(ZITADEL_IMAGE) .
+docker_image: 
+	DOCKER_BUILDKIT=1 docker build --platform=linux/amd64 -f build/Dockerfile -t $(ZITADEL_IMAGE) .
 
 .PHONY: compile_pipeline
 compile_pipeline: console_move
-	CGO_ENABLED=0 go build -o zitadel -v -ldflags="-s -w -X 'github.com/zitadel/zitadel/cmd/build.commit=$(COMMIT_SHA)' -X 'github.com/zitadel/zitadel/cmd/build.date=$(now)' -X 'github.com/zitadel/zitadel/cmd/build.version=$(VERSION)' "
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o zitadel -v -ldflags="-s -w -X 'github.com/zitadel/zitadel/cmd/build.commit=$(COMMIT_SHA)' -X 'github.com/zitadel/zitadel/cmd/build.date=$(now)' -X 'github.com/zitadel/zitadel/cmd/build.version=$(VERSION)' "
 	chmod +x zitadel
 
 .PHONY: core_dependencies
@@ -106,7 +106,7 @@ core_unit_test:
 
 .PHONY: core_integration_setup
 core_integration_setup:
-	go build -o zitadel main.go
+	GOOS=linux GOARCH=amd64 go build -o zitadel main.go
 	./zitadel init --config internal/integration/config/zitadel.yaml --config internal/integration/config/${INTEGRATION_DB_FLAVOR}.yaml
 	./zitadel setup --masterkeyFromEnv --init-projections --config internal/integration/config/zitadel.yaml --config internal/integration/config/${INTEGRATION_DB_FLAVOR}.yaml --steps internal/integration/config/zitadel.yaml --steps internal/integration/config/${INTEGRATION_DB_FLAVOR}.yaml
 	$(RM) zitadel
