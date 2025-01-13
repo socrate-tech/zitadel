@@ -201,28 +201,6 @@ module.exports = {
       runmeLinkLabel: 'Checkout via Runme'
     },
   },
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('swc-loader'),
-      options: {
-        jsc: {
-          parser: {
-            syntax: 'typescript',
-            tsx: true,
-          },
-          transform: {
-            react: {
-              runtime: 'automatic',
-            },
-          },
-          target: 'es2017',
-        },
-        module: {
-          type: isServer ? 'commonjs' : 'es6',
-        },
-      },
-    }),
-  },
   presets: [
     [
       "classic",
@@ -389,4 +367,14 @@ module.exports = {
     },
   ],
   themes: [ "docusaurus-theme-github-codeblock", "docusaurus-theme-openapi-docs"],
+  future: {
+    experimental_faster: {
+      swcJsLoader: true,
+      swcJsMinimizer: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      rspackBundler: false,
+      mdxCrossCompilerCache: true,
+    },
+  },
 };
