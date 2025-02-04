@@ -8,14 +8,14 @@ on:
 jobs:
   devcontainer:
     name: prepare devcontainer
+    permissions:
+        contents: read
+        id-token: write
     runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
         - run: npm install -g @devcontainers/cli
-        - uses: depot/setup-action@v1
+        - uses: depot/use-action@v1
           with:
-            oidc: true
-        - run: depot configure-docker
-          env:
-            DEPOT_TOKEN: ${{ secrets.DEPOT_TOKEN }}
+            project: f69z8v6840
         - run: devcontainer build --workspace-folder .
