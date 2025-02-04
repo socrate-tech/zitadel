@@ -8,11 +8,12 @@ on:
 jobs:
   devcontainer:
     name: prepare devcontainer
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
         - run: npm install -g @devcontainers/cli
         - uses: depot/setup-action@v1
           with:
             oidc: true
+        - run: configure-docker
         - run: devcontainer build --workspace-folder .
