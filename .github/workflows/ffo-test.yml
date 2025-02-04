@@ -17,9 +17,4 @@ jobs:
         - uses: devcontainers/ci@v0.3
           with:    
             push: never
-            runCmd: cd console && yarn install && yarn generate && yarn build
-        # - run: npm install -g @devcontainers/cli
-        # - uses: depot/use-action@v1
-        #   with:
-        #     project: f69z8v6840
-        # - run: devcontainer build --workspace-folder .
+            runCmd: pnpm build
