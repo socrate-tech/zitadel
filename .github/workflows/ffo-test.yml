@@ -3,7 +3,7 @@ name: ffo test ci
 on:
   push:
     branches:
-      - test-depot
+      - devcontainer-ci
 
 jobs:
   devcontainer:
