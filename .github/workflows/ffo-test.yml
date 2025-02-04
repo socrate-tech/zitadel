@@ -36,7 +36,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm generate
+            runCmd: pnpm install && pnpm generate
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   console-lint:
@@ -55,7 +55,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm lint
+            runCmd: pnpm install && pnpm lint
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   console-build:
@@ -74,7 +74,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm build
+            runCmd: pnpm install && pnpm build
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   # test:
