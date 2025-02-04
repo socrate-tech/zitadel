@@ -36,4 +36,13 @@ jobs:
             runCmd: pnpm build
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
-        - run: ls -latr console/dist/console
+  test:
+    needs: devcontainer
+    runs-on: depot-ubuntu-22.04-8
+    steps:
+        - uses: actions/checkout@v4
+        - uses: devcontainers/ci@v0.3
+          with:         
+            runCmd:  make core_api && make core_unit_test
+            cacheFrom: ghcr.io/zitadel/devcontainer
+            push: never
