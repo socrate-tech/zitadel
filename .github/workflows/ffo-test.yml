@@ -14,9 +14,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
-        - uses: depot/use-action@v1
-          with:
-            project: f69z8v6840
-        - run: npm install -g @devcontainers/cli
-        - run: devcontainer build --workspace-folder .
-        - run: devcontainer up --workspace-folder .
+        - uses: devcontainers/ci@v0.3
+          with:        
+            push: never
+            runCmd: pnpm install && pnpm build
+        - run: ls -latr console/dist/console
+        # - uses: depot/use-action@v1
+        #   with:
+        #     project: f69z8v6840
+        # - run: npm install -g @devcontainers/cli
+        # - run: devcontainer build --workspace-folder .
+        # - run: devcontainer up --workspace-folder .
