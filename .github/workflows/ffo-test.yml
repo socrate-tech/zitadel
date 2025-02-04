@@ -18,4 +18,4 @@ jobs:
           with:
             project: f69z8v6840
         - run: npm install -g @devcontainers/cli
-        - run: devcontainer build --workpace-folder .
+        - run: devcontainer build --workspace-folder .
