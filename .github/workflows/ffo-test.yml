@@ -11,12 +11,12 @@ jobs:
     permissions:
         contents: read
         id-token: write
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
-        - uses: devcontainers/ci@v0.3
+        - uses: depot/use-action@v1
           with:
-            push: never
-            inheritEnv: true
-            runCmd: pnpm install && pnpm build
-        - run: ls -latr /workspaces/zitadel/console/
+            project: f69z8v6840
+        - run: npm install -g @devcontainers/cli
+        - run: devcontainer build --workpace-folder .
+        - run: devcontainer up --workspace-folder .
