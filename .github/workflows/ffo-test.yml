@@ -17,7 +17,5 @@ jobs:
         - uses: depot/use-action@v1
           with:
             project: f69z8v6840
-        - uses: devcontainers/ci@v0.3
-          with:
-            push: never
-            runCmd: pnpm install && pnpm build
+        - run: npm install -g @devcontainers/cli
+        - run: devcontainer build
