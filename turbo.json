@@ -7,6 +7,9 @@
       "generate": {
         "cache": true
       },
+      "lint": {
+        "cache": true
+      },
       "clear": {
         "cache": false
       }
