@@ -18,5 +18,5 @@ jobs:
           with:
             imageName: registry.depot.dev/f69z8v6840
             cacheFrom: registry.depot.dev/f69z8v6840
-            push: never
+            push: always
             runCmd: pnpm install && pnpm build
