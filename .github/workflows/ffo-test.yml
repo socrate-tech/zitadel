@@ -11,6 +11,7 @@ jobs:
     runs-on: depot-ubuntu-22.04-8
     steps:
         - uses: actions/checkout@v4
+        - run: npm install -g @devcontainers/cli
         - uses: depot/setup-action@v1
           with:
             oidc: true
