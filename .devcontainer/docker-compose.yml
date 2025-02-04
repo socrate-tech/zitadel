@@ -1,9 +1,10 @@
-version: '3.8'
 services:
   devcontainer:
     build:
       context: ../.
       dockerfile: .devcontainer/Dockerfile
+      cache_from: 
+        - ghcr.io/zitadel/devcontainer:latest
       args:
         NODE_VERSION: 22
         GO_VERSION: 1.23.6
