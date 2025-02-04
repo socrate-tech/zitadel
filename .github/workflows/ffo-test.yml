@@ -6,17 +6,24 @@ on:
       - devcontainer-ci
 
 jobs:
-  devcontainer:
+  devcontainer: ## maybe add cache for npm and go here
     runs-on: depot-ubuntu-22.04-8
     steps:
         - uses: actions/checkout@v4
+        - uses: actions/setup-node@v4
+          with:
+            cache: 'pnpm'
+        - uses: actions/setup-go@v5
+          with:
+            go-version-file: 'go.mod'
         - uses: docker/login-action@v2 
           with:
             registry: ghcr.io
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
         - uses: devcontainers/ci@v0.3
-          with:         
+          with:
+            runCmd: pnpm install && go mod download
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
