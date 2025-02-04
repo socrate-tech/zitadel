@@ -46,3 +46,13 @@ jobs:
             runCmd:  make core_build && make core_unit_test
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
+  db-test:
+    needs: devcontainer
+    runs-on: depot-ubuntu-22.04-8
+    steps:
+        - uses: actions/checkout@v4
+        - uses: devcontainers/ci@v0.3
+          with:         
+            runCmd:  make core_build && make core_integration_test
+            cacheFrom: ghcr.io/zitadel/devcontainer
+            push: never
