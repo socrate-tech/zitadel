@@ -19,3 +19,5 @@ jobs:
             project: f69z8v6840
         - run: npm install -g @devcontainers/cli
         - run: devcontainer build --workspace-folder .
+        - run: devcontainer up --workspace-folder .
+        - run: devcontainer exec --workspace-folder . pnpm build
