@@ -15,5 +15,5 @@ jobs:
         - uses: depot/setup-action@v1
           with:
             oidc: true
-        - run: configure-docker
+        - run: depot configure-docker
         - run: devcontainer build --workspace-folder .
