@@ -3,11 +3,11 @@ services:
     build:
       context: ../.
       dockerfile: .devcontainer/Dockerfile
-      cache_from: 
-        - ghcr.io/zitadel/devcontainer:latest
       args:
         NODE_VERSION: 22
         GO_VERSION: 1.23.6
+      cache_from: 
+        - ghcr.io/zitadel/devcontainer:latest
     volumes:
       - ../..:/workspaces:cached
       - /var/run/docker.sock:/var/run/docker.sock
