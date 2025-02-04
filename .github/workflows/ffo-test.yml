@@ -36,7 +36,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm production
+            runCmd: pnpm install && pnpm build
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   lint-console:

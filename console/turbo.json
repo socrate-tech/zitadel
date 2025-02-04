@@ -11,6 +11,10 @@
         "outputs": ["dist/**"],
         "cache": true
       },
+      "lint": {
+        "dependsOn": ["generate"],
+        "cache": true
+      },
       "start": {
         "dependsOn": ["generate"],
         "cache": false
