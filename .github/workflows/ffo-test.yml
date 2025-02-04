@@ -7,7 +7,6 @@ on:
 
 jobs:
   devcontainer:
-    name: prepare devcontainer
     runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
@@ -16,6 +15,16 @@ jobs:
             registry: ghcr.io
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
+        - uses: devcontainers/ci@v0.3
+          with:         
+            imageName: ghcr.io/zitadel/devcontainer
+            cacheFrom: ghcr.io/zitadel/devcontainer
+            push: always
+  build:
+    needs: devcontainer
+    runs-on: ubuntu-22.04
+    steps:
+        - uses: actions/checkout@v4
         - uses: actions/cache@v4
           with: 
             path: .turbo
@@ -24,8 +33,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm install && pnpm build
-            imageName: ghcr.io/zitadel/devcontainer
+            runCmd: pnpm build
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
         - run: ls -latr console/dist/console
