@@ -16,4 +16,6 @@ jobs:
           with:
             oidc: true
         - run: depot configure-docker
+          env:
+            DEPOT_TOKEN: ${{ secrets.DEPOT_TOKEN }}
         - run: devcontainer build --workspace-folder .
