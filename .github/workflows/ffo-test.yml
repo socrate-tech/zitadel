@@ -40,7 +40,7 @@ jobs:
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   console-lint:
-    needs: devcontainer
+    needs: console-depenencies
     runs-on: depot-ubuntu-22.04-8
     defaults:
       run:
