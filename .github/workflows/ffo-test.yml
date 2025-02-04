@@ -20,7 +20,7 @@ jobs:
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-  console-depenencies:
+  console:
     needs: devcontainer
     runs-on: depot-ubuntu-22.04-8
     defaults:
@@ -36,45 +36,7 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm install && pnpm generate
-            cacheFrom: ghcr.io/zitadel/devcontainer
-            push: never
-  console-lint:
-    needs: console-depenencies
-    runs-on: depot-ubuntu-22.04-8
-    defaults:
-      run:
-        working-directory: ./console
-    steps:
-        - uses: actions/checkout@v4
-        - uses: actions/cache@v4
-          with: 
-            path: .turbo
-            key: ${{ runner.os }}-turbo-${{ github.sha }}
-            restore-keys: |
-              ${{ runner.os }}-turbo-
-        - uses: devcontainers/ci@v0.3
-          with:         
-            runCmd: pnpm install && pnpm lint
-            cacheFrom: ghcr.io/zitadel/devcontainer
-            push: never
-  console-build:
-    needs: console-depenencies
-    runs-on: depot-ubuntu-22.04-8
-    defaults:
-      run:
-        working-directory: ./console
-    steps:
-        - uses: actions/checkout@v4
-        - uses: actions/cache@v4
-          with: 
-            path: .turbo
-            key: ${{ runner.os }}-turbo-${{ github.sha }}
-            restore-keys: |
-              ${{ runner.os }}-turbo-
-        - uses: devcontainers/ci@v0.3
-          with:         
-            runCmd: pnpm install && pnpm build
+            runCmd: pnpm install && pnpm run lint build
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
   # test:
