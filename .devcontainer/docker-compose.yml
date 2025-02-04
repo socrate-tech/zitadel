@@ -1,7 +1,12 @@
 version: '3.8'
 services:
   devcontainer:
-    image: ghcr.io/zitadel/devcontainer:latest
+    build:
+      context: ../.
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        NODE_VERSION: 22
+        GO_VERSION: 1.23.6
     volumes:
       - ../..:/workspaces:cached
       - /var/run/docker.sock:/var/run/docker.sock
