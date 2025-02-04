@@ -11,15 +11,12 @@ jobs:
     permissions:
         contents: read
         id-token: write
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: ubuntu-22.04
     steps:
         - uses: actions/checkout@v4
+        - run: npm install -g @devcontainers/cli
         - uses: depot/use-action@v1
           with:
             project: f69z8v6840
-        - uses: devcontainers/ci@v0.3
-          with:
-            imageName: registry.depot.dev/f69z8v6840
-            cacheFrom: registry.depot.dev/f69z8v6840
-            push: always
-            runCmd: pnpm install && pnpm build
+        - run: devcontainer build --workspace-folder .
+        - run: devcontainer run-user-commands "pnpm build"
