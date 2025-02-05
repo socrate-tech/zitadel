@@ -4,6 +4,7 @@
     "scripts": {
       "generate": "make -C ../ core_build",
       "build": "make -C ../ compile_pipeline",
+      "test": "make -C ../ core_unit_test",
       "clear": "rm -rf ../.artifacts"
     }
   }
