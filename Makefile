@@ -83,7 +83,7 @@ core_build: core_dependencies core_api core_static core_assets
 
 .PHONY: console_move
 console_move:
-	cp -p -r console/dist/console/* internal/api/ui/console/static
+	cp -r console/dist/console internal/api/ui/console/static
 
 .PHONY: console_dependencies
 console_dependencies:
@@ -135,7 +135,7 @@ core_integration_server_start: core_integration_setup
 
 .PHONY: core_integration_test_packages
 core_integration_test_packages:
-	go test -race -count 1 -tags integration -timeout 30m $$(go list -tags integration ./... | grep "integration_test")
+	go test -race -count 1 -tags integration -timeout 5m $$(go list -tags integration ./... | grep "integration_test")
 
 .PHONY: core_integration_server_stop
 core_integration_server_stop:
