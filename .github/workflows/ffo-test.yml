@@ -23,9 +23,6 @@ jobs:
   build:
     needs: devcontainer
     runs-on: depot-ubuntu-22.04-16
-    defaults:
-      run:
-        working-directory: ./console
     steps:
         - uses: actions/checkout@v4
         - uses: devcontainers/ci@v0.3
@@ -34,6 +31,6 @@ jobs:
             TURBO_TOKEN: TURBO_TOKEN
             TURBO_TEAM: TURBO_TEAM
           with:         
-            runCmd: echo $TURBO_TEAM && pnpm install && pnpm build test integration
+            runCmd: pnpm install && pnpm build test integration
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never

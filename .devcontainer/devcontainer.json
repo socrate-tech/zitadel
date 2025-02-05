@@ -23,5 +23,5 @@
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/home/vscode/go/bin"
 	},
-	"onCreateCommand": "npm install -g sass@1.64.1"
+	"onCreateCommand": "npm install -g sass@1.64.1 && echo $TURBO_API"
 }
