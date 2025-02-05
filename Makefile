@@ -83,7 +83,7 @@ core_build: core_dependencies core_api core_static core_assets
 
 .PHONY: console_move
 console_move:
-	cp -r console/dist/console/* internal/api/ui/console/static
+	cp -p -r console/dist/console/* internal/api/ui/console/static
 
 .PHONY: console_dependencies
 console_dependencies:
