@@ -4,7 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "generate": "turbo run generate",
-    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "integration": "turbo run integration",
     "clear": "turbo run clear"
   },
   "devDependencies": {

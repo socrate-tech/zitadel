@@ -14,6 +14,7 @@
         "cache": false
       }
     },
+    "ui": "tui",
     "remoteCache": {
       "enabled": true
     }
