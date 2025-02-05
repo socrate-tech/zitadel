@@ -34,6 +34,6 @@ jobs:
             TURBO_TOKEN: TURBO_TOKEN
             TURBO_TEAM: TURBO_TEAM
           with:         
-            runCmd: echp $TURBO_TEAM && pnpm install && pnpm build test integration
+            runCmd: echo $TURBO_TEAM && pnpm install && pnpm build test integration
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
