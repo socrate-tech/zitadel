@@ -21,7 +21,10 @@
 		8080
 	],
 	"remoteEnv": {
-		"PATH": "${containerEnv:PATH}:/home/vscode/go/bin"
+		"PATH": "${containerEnv:PATH}:/home/vscode/go/bin",
+		"TURBO_API": "${localEnv:TURBO_API}",
+		"TURBO_TOKEN": "${localEnv:TURBO_TOKEN}",
+		"TURBO_TEAM": "${localEnv:TURBO_TEAM}"
 	},
-	"onCreateCommand": "npm install -g sass@1.64.1 && echo $TURBO_API"
+	"onCreateCommand": "npm install -g sass@1.64.1 && echo the team is $TURBO_TEAM"
 }
