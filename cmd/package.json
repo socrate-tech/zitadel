@@ -4,8 +4,7 @@
     "scripts": {
       "generate": "make -C ../ core_build",
       "build": "make -C ../ compile_pipeline",
-      "test": "pnpm run test:packages test:integration test:unit",
-      "test:packages": "make -C ../ core_integration_test_packages",
+      "test": "pnpm run test:integration test:unit",
       "test:unit": "make -C ../ core_unit_test",
       "test:integration": "make -C ../ core_integration_test",
       "clear": "rm -rf ../.artifacts"

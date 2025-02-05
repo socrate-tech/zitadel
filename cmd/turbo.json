@@ -12,14 +12,9 @@
         "cache": true
       },
       "test": {
-        "dependsOn": ["test:unit", "test:package", "test:integration"]
+        "dependsOn": ["test:unit", "test:integration"]
       },
       "test:unit": {
-        "dependsOn": ["generate"],
-        "outputs": ["../profile.cov"],
-        "cache": false
-      },
-      "test:package": {
         "dependsOn": ["generate"],
         "outputs": ["../profile.cov"],
         "cache": false

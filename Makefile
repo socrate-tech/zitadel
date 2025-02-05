@@ -148,7 +148,7 @@ core_integration_reports:
 	go tool covdata textfmt -i=tmp/coverage -pkg=github.com/zitadel/zitadel/internal/...,github.com/zitadel/zitadel/cmd/... -o profile.cov
 
 .PHONY: core_integration_test
-core_integration_test: core_integration_server_start core_integration_server_stop core_integration_reports
+core_integration_test: core_integration_server_start core_integration_test_packages core_integration_server_stop core_integration_reports
 
 .PHONY: console_lint
 console_lint:
