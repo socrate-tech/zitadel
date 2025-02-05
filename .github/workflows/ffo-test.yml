@@ -22,20 +22,15 @@ jobs:
             push: always
   build:
     needs: devcontainer
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: depot-ubuntu-22.04-16
     defaults:
       run:
         working-directory: ./console
     steps:
         - uses: actions/checkout@v4
-        - uses: actions/cache@v4
-          with: 
-            path: .turbo
-            key: ${{ runner.os }}-turbo-${{ github.sha }}
-            restore-keys: |
-              ${{ runner.os }}-turbo-
-        - uses: devcontainers/ci@v0.3
+        - uses: devcontainers/ci@main
           with:         
             runCmd: pnpm install && pnpm build test integration
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
+            inheritEnv: true
