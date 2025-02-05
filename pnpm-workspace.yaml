@@ -1,4 +1,4 @@
 packages:
   - "console/**"
   - "cmd/**"
-  - "e2e/**"
+  //- "e2e/**"
