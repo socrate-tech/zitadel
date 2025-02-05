@@ -28,7 +28,7 @@ jobs:
         working-directory: ./console
     steps:
         - uses: actions/checkout@v4
-        - uses: devcontainers/ci@main
+        - uses: devcontainers/ci@build-number-1900000354
           with:         
             runCmd: pnpm install && pnpm build test integration
             cacheFrom: ghcr.io/zitadel/devcontainer
