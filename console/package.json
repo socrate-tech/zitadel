@@ -9,7 +9,7 @@
     "lint": "ng lint && prettier --check src",
     "lint:fix": "prettier --write src",
     "generate": "buf generate ../proto --include-imports --include-wkt",
-    "clear": "rm -rf src/app/proto/generated && rm -rf .angular"
+    "clear": "rm -rf src/app/proto/generated && rm -rf .angular && rm -rf dist"
   },
   "private": true,
   "dependencies": {
