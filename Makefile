@@ -21,7 +21,7 @@ docker_image: compile
 	DOCKER_BUILDKIT=1 docker build -f build/Dockerfile -t $(ZITADEL_IMAGE) .
 
 .PHONY: compile_pipeline
-compile_pipeline: console_move
+compile_pipeline: #console_move
 	CGO_ENABLED=0 go build -o zitadel -v -ldflags="-s -w -X 'github.com/zitadel/zitadel/cmd/build.commit=$(COMMIT_SHA)' -X 'github.com/zitadel/zitadel/cmd/build.date=$(now)' -X 'github.com/zitadel/zitadel/cmd/build.version=$(VERSION)' "
 	chmod +x zitadel
 

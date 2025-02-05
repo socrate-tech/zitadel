@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
       "generate": "make -C ../ core_build",
+      "build": "make -C ../ compile_pipeline",
       "clear": "rm -rf ../.artifacts"
     }
   }

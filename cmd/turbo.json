@@ -2,22 +2,14 @@
     "extends": ["//"],
     "tasks": {
       "generate": {
-        "outputs": ["../.artifact/**"],
-        "inputs": ["../proto/**", "../buf.gen.yaml"],
+        "outputs": ["../.artifact/**", "**/statik/statik.go"],
+        "inputs": ["../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
         "cache": true
       },
       "build": {
         "dependsOn": ["generate"],
-        "outputs": ["dist/**"],
+        "outputs": ["../zitadel"],
         "cache": true
-      },
-      "lint": {
-        "dependsOn": ["generate"],
-        "cache": true
-      },
-      "start": {
-        "dependsOn": ["generate"],
-        "cache": false
       },
       "clear": {
         "cache": false
