@@ -2,7 +2,7 @@
     "extends": ["//"],
     "tasks": {
       "generate": {
-        "outputs": ["src/app/proto/generated/**"],
+        "outputs": ["../internal/api/ui/console/static/**"],
         "inputs": ["../proto/**", "buf.gen.yaml"],
         "cache": true
       },

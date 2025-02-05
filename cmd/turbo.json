@@ -7,19 +7,27 @@
         "cache": true
       },
       "build": {
-        "dependsOn": ["generate"],
+        "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel"],
         "cache": true
       },
       "test": {
+        "dependsOn": ["test:unit", "test:package", "test:integration"]
+      },
+      "test:unit": {
         "dependsOn": ["generate"],
         "outputs": ["../profile.cov"],
-        "cache": true
+        "cache": false
       },
-      "integration": {
+      "test:package": {
+        "dependsOn": ["generate"],
+        "outputs": ["../profile.cov"],
+        "cache": false
+      },
+      "test:integration": {
         "dependsOn": ["generate"],
         "outputs": ["../zitadel.test"],
-        "cache": true
+        "cache": false
       },
       "clear": {
         "cache": false
