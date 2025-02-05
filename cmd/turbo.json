@@ -2,7 +2,7 @@
     "extends": ["//"],
     "tasks": {
       "generate": {
-        "outputs": ["../.artifact/**", "**/statik/statik.go"],
+        "outputs": ["../.artifacts/**", "**/statik/statik.go"],
         "inputs": ["../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
         "cache": true
       },

@@ -29,8 +29,11 @@ jobs:
     steps:
         - uses: actions/checkout@v4
         - uses: devcontainers/ci@v0.3
+          env:
+            TURBO_API: TURBO_API
+            TURBO_TOKEN: TURBO_TOKEN
+            TURBO_TEAM: TURBO_TEAM
           with:         
-            runCmd: pnpm install && pnpm build test integration
+            runCmd: echp $TURBO_TEAM && pnpm install && pnpm build test integration
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
-            inheritEnv: true
