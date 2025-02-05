@@ -20,7 +20,7 @@ jobs:
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-  console:
+  build:
     needs: devcontainer
     runs-on: depot-ubuntu-22.04-8
     defaults:
@@ -36,26 +36,6 @@ jobs:
               ${{ runner.os }}-turbo-
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm install && pnpm run lint build
+            runCmd: pnpm install && pnpm generate
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
-  # test:
-  #   needs: devcontainer
-  #   runs-on: depot-ubuntu-22.04-8
-  #   steps:
-  #       - uses: actions/checkout@v4
-  #       - uses: devcontainers/ci@v0.3
-  #         with:         
-  #           runCmd:  make core_build && make core_unit_test
-  #           cacheFrom: ghcr.io/zitadel/devcontainer
-  #           push: never
-  # db-test:
-  #   needs: devcontainer
-  #   runs-on: depot-ubuntu-22.04-8
-  #   steps:
-  #       - uses: actions/checkout@v4
-  #       - uses: devcontainers/ci@v0.3
-  #         with:         
-  #           runCmd:  make core_build && make core_integration_test
-  #           cacheFrom: ghcr.io/zitadel/devcontainer
-  #           push: never

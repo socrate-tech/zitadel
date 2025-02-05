@@ -1,0 +1,26 @@
+{
+    "extends": ["//"],
+    "tasks": {
+      "generate": {
+        "outputs": ["../.artifact/**"],
+        "inputs": ["../proto/**", "../buf.gen.yaml"],
+        "cache": true
+      },
+      "build": {
+        "dependsOn": ["generate"],
+        "outputs": ["dist/**"],
+        "cache": true
+      },
+      "lint": {
+        "dependsOn": ["generate"],
+        "cache": true
+      },
+      "start": {
+        "dependsOn": ["generate"],
+        "cache": false
+      },
+      "clear": {
+        "cache": false
+      }
+  }
+}

@@ -1,0 +1,8 @@
+{
+    "name": "@zitadel/core",
+    "private": true,
+    "scripts": {
+      "generate": "make -C ../ core_build",
+      "clear": "rm -rf ../.artifacts"
+    }
+  }
