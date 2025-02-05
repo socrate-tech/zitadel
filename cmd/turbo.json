@@ -16,6 +16,11 @@
         "outputs": ["../profile.cov"],
         "cache": true
       },
+      "integration": {
+        "dependsOn": ["generate"],
+        "outputs": ["../zitadel.test"],
+        "cache": true
+      },
       "clear": {
         "cache": false
       }
