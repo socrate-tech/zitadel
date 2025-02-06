@@ -2,7 +2,7 @@
     "extends": ["//"],
     "tasks": {
       "generate": {
-        "outputs": ["../.artifacts/**", "**/statik/statik.go"],
+        "outputs": ["../pkg/grpc/**", "../openapi/v2/zitadel/**", "**/statik/statik.go"],
         "inputs": ["../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
         "cache": true
       },
