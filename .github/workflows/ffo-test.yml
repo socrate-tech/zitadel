@@ -10,6 +10,7 @@ jobs:
     runs-on: depot-ubuntu-22.04-8
     steps:
         - uses: actions/checkout@v4
+        - run: git fetch origin main:main
         - uses: docker/login-action@v2 
           with:
             registry: ghcr.io
