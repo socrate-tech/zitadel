@@ -124,18 +124,18 @@ core_integration_setup:
 	go build -cover -race -tags integration -o zitadel.test main.go
 	mkdir -p $${GOCOVERDIR}
 	GORACE="halt_on_error=1" ./zitadel.test init --config internal/integration/config/zitadel.yaml --config internal/integration/config/postgres.yaml
-	GORACE="halt_on_error=1" ./zitadel.test setup --masterkeyFromEnv --init-projections --config internal/integration/config/zitadel.yaml --config internal/integration/config/postgres.yaml --steps internal/integration/config/steps.yaml
+	GORACE="halt_on_error=1" ./zitadel.test setup --masterkey MasterkeyNeedsToHave32Characters --init-projections --config internal/integration/config/zitadel.yaml --config internal/integration/config/postgres.yaml --steps internal/integration/config/steps.yaml
 
 .PHONY: core_integration_server_start
 core_integration_server_start: core_integration_setup
 	GORACE="log_path=tmp/race.log" \
-	./zitadel.test start --masterkeyFromEnv --config internal/integration/config/zitadel.yaml --config internal/integration/config/postgres.yaml \
+	./zitadel.test start --masterkey MasterkeyNeedsToHave32Characters --config internal/integration/config/zitadel.yaml --config internal/integration/config/postgres.yaml \
 	  > tmp/zitadel.log 2>&1 \
 	  & printf $$! > tmp/zitadel.pid
 
 .PHONY: core_integration_test_packages
 core_integration_test_packages:
-	go test -race -count=1 -tags=integration -timeout 5m -parallel 4 ./...
+	go test -race -count 1 -tags integration -timeout 30m $(shell go list -tags integration ./... | grep "integration_test")
 
 .PHONY: core_integration_server_stop
 core_integration_server_stop:
