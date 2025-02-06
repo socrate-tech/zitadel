@@ -27,16 +27,6 @@ jobs:
         - uses: actions/checkout@v4
         - uses: devcontainers/ci@v0.3
           with:         
-            runCmd: pnpm install && pnpm build
-            cacheFrom: ghcr.io/zitadel/devcontainer
-            push: never
-  test:
-    needs: devcontainer
-    runs-on: depot-ubuntu-22.04-16
-    steps:
-        - uses: actions/checkout@v4
-        - uses: devcontainers/ci@v0.3
-          with:         
-            runCmd: pnpm install && pnpm test
+            runCmd: pnpm install && pnpm build test
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: never
