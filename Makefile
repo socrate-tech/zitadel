@@ -14,7 +14,7 @@ ZITADEL_MASTERKEY ?= MasterkeyNeedsToHave32Characters
 export GOCOVERDIR INTEGRATION_DB_FLAVOR ZITADEL_MASTERKEY
 
 .PHONY: compile
-compile: core_build console_build compile_pipeline
+compile: core_build compile_pipeline
 
 .PHONY: docker_image
 docker_image: compile
@@ -81,21 +81,6 @@ core_api: core_api_generator core_grpc_dependencies
 .PHONY: core_build
 core_build: core_dependencies core_api core_static core_assets
 
-.PHONY: console_dependencies
-console_dependencies:
-	cd console && \
-	yarn install --immutable
-
-.PHONY: console_client
-console_client:
-	cd console && \
-	yarn generate
-
-.PHONY: console_build
-console_build: console_dependencies console_client
-	cd console && \
-	yarn build
-
 .PHONY: clean
 clean:
 	$(RM) -r .artifacts/grpc
@@ -131,7 +116,7 @@ core_integration_server_start: core_integration_setup
 
 .PHONY: core_integration_test_packages
 core_integration_test_packages:
-	go test -race -count 1 -tags integration -timeout 30m $$(go list -tags integration ./... | grep "integration_test")
+	go test -parallel 5 -race -count 1 -tags integration -timeout 30m $$(go list -tags integration ./... | grep "integration_test")
 
 .PHONY: core_integration_server_stop
 core_integration_server_stop:
@@ -150,13 +135,9 @@ core_integration_reports:
 .PHONY: core_integration_test
 core_integration_test: core_integration_server_start core_integration_test_packages core_integration_server_stop core_integration_reports
 
-.PHONY: console_lint
-console_lint:
-	cd console && \
-	yarn lint
-
 .PHONY: core_lint
 core_lint:
+	export GOGC=10
 	golangci-lint run \
 		--timeout 10m \
 		--config ./.golangci.yaml \

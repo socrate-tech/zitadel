@@ -16,19 +16,19 @@
         "dependsOn": ["test:unit", "test:integration"]
       },
       "test:unit": {
-        "dependsOn": ["generate", "build"],
+        "dependsOn": ["generate"],
         "outputs": ["../profile.cov"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
         "cache": false
       },
       "test:integration": {
-        "dependsOn": ["generate", "build"],
+        "dependsOn": ["generate"],
         "outputs": ["../zitadel.test", "../tmp/**"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
         "cache": false
       },
       "lint": {
-        "dependsOn": ["generate", "build"],
+        "dependsOn": ["generate"],
         "cache": false
       },
       "clear": {
