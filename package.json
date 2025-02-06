@@ -6,6 +6,7 @@
     "generate": "turbo run generate",
     "test": "turbo run test",
     "integration": "turbo run integration",
+    "lint": "turbo run lint",
     "clear": "turbo run clear"
   },
   "devDependencies": {
