@@ -6,7 +6,7 @@ on:
       - devcontainer-ci
 
 jobs:
-  devcontainer: ## maybe add cache for npm and go here
+  build: ## maybe add cache for npm and go here
     runs-on: depot-ubuntu-22.04-8
     steps:
         - uses: actions/checkout@v4
@@ -20,13 +20,4 @@ jobs:
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-  build:
-    needs: devcontainer
-    runs-on: depot-ubuntu-22.04-16
-    steps:
-        - uses: actions/checkout@v4
-        - uses: devcontainers/ci@v0.3
-          with:         
             runCmd: pnpm install && pnpm build test
-            cacheFrom: ghcr.io/zitadel/devcontainer
-            push: never
