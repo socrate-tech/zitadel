@@ -1,8 +1,8 @@
-// //go:build integration
+//go:build integration
 
 // Disabled by FFO, reason to flakky
 
-// package quotas_enabled_test
+package quotas_enabled_test
 
 // import (
 // 	"bytes"
