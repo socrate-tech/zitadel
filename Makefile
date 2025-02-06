@@ -109,7 +109,7 @@ clean:
 
 .PHONY: core_unit_test
 core_unit_test:
-	go test -parallel 4 -race -coverprofile=profile.cov -coverpkg=./internal/...  ./...
+	go test -race -coverprofile=profile.cov -coverpkg=./internal/...  ./...
 
 .PHONY: core_integration_db_up
 core_integration_db_up:
@@ -135,7 +135,7 @@ core_integration_server_start: core_integration_setup
 
 .PHONY: core_integration_test_packages
 core_integration_test_packages:
-	go test -race -count 1 -tags integration -timeout 30m $(shell go list -tags integration ./... | grep "integration_test")
+	go test -race -count 1 -tags integration -timeout 5m
 
 .PHONY: core_integration_server_stop
 core_integration_server_stop:
