@@ -109,7 +109,7 @@ clean:
 
 .PHONY: core_unit_test
 core_unit_test:
-	go test -race -coverprofile=profile.cov -coverpkg=./internal/...  ./...
+	go test -race -parallel 4 -coverprofile=profile.cov -coverpkg=./internal/...  ./...
 
 .PHONY: core_integration_db_up
 core_integration_db_up:
