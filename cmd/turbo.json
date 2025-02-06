@@ -2,7 +2,7 @@
     "extends": ["//"],
     "tasks": {
       "generate": {
-        "outputs": ["../pkg/grpc/**/*.pb.**", "../openapi/v2/zitadel/**", "**/statik/statik.go"],
+        "outputs": ["../pkg/grpc/**/*.pb.**", "../openapi/v2/zitadel/**", "**/statik/statik.go", "../internal/api/assets/authz.go", "../internal/api/assets/router.go"],
         "inputs": ["../cmd/turbo.json", "../cmd/package.json", "../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
         "cache": true
       },
