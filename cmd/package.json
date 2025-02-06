@@ -6,6 +6,7 @@
       "build": "make -C ../ compile_pipeline",
       "test:unit": "make -C ../ core_unit_test",
       "test:integration": "make -C ../ core_integration_test",
+      "lint": "make -C ../ core_lint",
       "clear": "rm -rf ../.artifacts && rm -rf ../internal/api/ui/console/static/"
     }
   }

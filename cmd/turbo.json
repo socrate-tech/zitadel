@@ -26,6 +26,10 @@
         "outputs": ["../zitadel.test", "../tmp/**"],
         "cache": false
       },
+      "lint": {
+        "dependsOn": ["generate", "build"],
+        "cache": false
+      },
       "clear": {
         "cache": false
       }
