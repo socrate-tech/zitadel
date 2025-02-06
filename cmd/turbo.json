@@ -21,7 +21,7 @@
       },
       "test:integration": {
         "dependsOn": ["generate", "build"],
-        "outputs": ["../zitadel.test"],
+        "outputs": ["../zitadel.test", "../tmp/**"],
         "cache": false
       },
       "clear": {
