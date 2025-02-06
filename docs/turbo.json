@@ -1,0 +1,26 @@
+{
+    "extends": ["//"],
+    "tasks": {
+      "generate": {
+        "outputs": [".artifacts/openapi/**"],
+        "inputs": ["$TURBO_DEFAULT$", "../proto/**", "buf.gen.yaml"],
+        "cache": true
+      },
+      "build": {
+        "dependsOn": ["generate"],
+        "outputs": ["build/**"],
+        "cache": true
+      },
+      "lint": {
+        "dependsOn": ["generate"],
+        "cache": true
+      },
+      "start": {
+        "dependsOn": ["generate"],
+        "cache": false
+      },
+      "clear": {
+        "cache": false
+      }
+  }
+}

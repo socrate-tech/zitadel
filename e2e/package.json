@@ -1,6 +1,5 @@
 {
   "name": "e2e",
-  "version": "0.0.0",
   "scripts": {
     "open": "npx cypress open",
     "e2e": "npx cypress run",
