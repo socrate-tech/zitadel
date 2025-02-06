@@ -15,12 +15,12 @@
         "dependsOn": ["test:unit", "test:integration"]
       },
       "test:unit": {
-        "dependsOn": ["generate"],
+        "dependsOn": ["generate", "build"],
         "outputs": ["../profile.cov"],
         "cache": false
       },
       "test:integration": {
-        "dependsOn": ["generate"],
+        "dependsOn": ["generate", "build"],
         "outputs": ["../zitadel.test"],
         "cache": false
       },
