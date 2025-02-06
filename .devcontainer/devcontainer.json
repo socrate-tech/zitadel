@@ -34,5 +34,5 @@
     "TURBO_TEAM": "${localEnv:TURBO_TEAM}"
   },
   "onCreateCommand": "sudo apt-get update && sudo apt-get install libnss-myhostname && npm install -g sass@1.64.1",  ],
-  "postCreateCommand": "pnpm install"
+  "postCreateCommand": "pnpm install && go mod download"
 }
