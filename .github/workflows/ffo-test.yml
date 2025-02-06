@@ -20,4 +20,4 @@ jobs:
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-            runCmd: pnpm install && pnpm build test --summarize
+            runCmd: pnpm install && pnpm build test lint --summarize

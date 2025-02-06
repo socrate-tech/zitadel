@@ -19,17 +19,18 @@
         "dependsOn": ["generate"],
         "outputs": ["../profile.cov"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
-        "cache": false
+        "cache": true
       },
       "test:integration": {
         "dependsOn": ["generate"],
         "outputs": ["../zitadel.test", "../tmp/**"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
-        "cache": false
+        "cache": true
       },
       "lint": {
         "dependsOn": ["generate"],
-        "cache": false
+        "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
+        "cache": true
       },
       "clear": {
         "cache": false

@@ -39,7 +39,7 @@ type spaHandler struct {
 }
 
 var (
-	//go:embed static
+	//go:embed all:static
 	static embed.FS
 )
 
