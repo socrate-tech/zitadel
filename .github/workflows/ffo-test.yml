@@ -7,7 +7,7 @@ on:
 
 jobs:
   build: ## maybe add cache for npm and go here
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: depot-ubuntu-22.04-16
     steps:
         - uses: actions/checkout@v4
           with:
