@@ -3,7 +3,7 @@
     "tasks": {
       "generate": {
         "outputs": ["../pkg/grpc/**/*.pb.**", "../openapi/v2/zitadel/**", "**/statik/statik.go"],
-        "inputs": ["../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
+        "inputs": ["../cmd/turbo.json", "../cmd/package.json", "../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
         "cache": true
       },
       "build": {
@@ -16,13 +16,13 @@
         "dependsOn": ["test:unit", "test:integration"]
       },
       "test:unit": {
-        "dependsOn": ["generate"],
+        "dependsOn": ["generate", "console#build"],
         "outputs": ["../profile.cov"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
         "cache": true
       },
       "test:integration": {
-        "dependsOn": ["generate"],
+        "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel.test", "../tmp/**"],
         "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
         "cache": true
