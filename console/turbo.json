@@ -13,7 +13,7 @@
       },
       "lint": {
         "dependsOn": ["generate"],
-        "cache": false
+        "cache": true
       },
       "start": {
         "dependsOn": ["generate"],

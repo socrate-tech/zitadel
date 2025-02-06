@@ -9,7 +9,7 @@
       "build": {
         "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel"],
-        "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
+        "inputs": ["!../console/**", "!../docs"],
         "cache": true
       },
       "test": {
@@ -18,18 +18,18 @@
       "test:unit": {
         "dependsOn": ["generate", "console#build"],
         "outputs": ["../profile.cov"],
-        "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
+        "inputs": ["!../console/**", "!../docs"],
         "cache": true
       },
       "test:integration": {
         "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel.test", "../tmp/**"],
-        "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
+        "inputs": ["!../console/**", "!../docs"],
         "cache": true
       },
       "lint": {
         "dependsOn": ["generate", "console#build"],
-        "inputs": ["../cmd/**", "../internal/**", "../openapi/**", "../pkg/**", "../statik/**", "../*"],
+        "inputs": ["!../console/**", "!../docs"],
         "cache": true
       },
       "clear": {
