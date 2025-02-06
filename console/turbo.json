@@ -4,12 +4,12 @@
       "generate": {
         "outputs": ["src/app/proto/generated/**"],
         "inputs": ["../proto/**", "buf.gen.yaml"],
-        "cache": false
+        "cache": true
       },
       "build": {
         "dependsOn": ["generate"],
         "outputs": ["dist/**"],
-        "cache": false
+        "cache": true
       },
       "lint": {
         "dependsOn": ["generate"],

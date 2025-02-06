@@ -4,12 +4,12 @@
       "generate": {
         "outputs": ["../.artifacts/**", "**/statik/statik.go"],
         "inputs": ["../proto/**", "../buf.gen.yaml", "../internal/api/ui/login/static/**", "../internal/notification/static/**", "../internal/static/**"],
-        "cache": false
+        "cache": true
       },
       "build": {
         "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel"],
-        "cache": false
+        "cache": true
       },
       "test": {
         "dependsOn": ["test:unit", "test:integration"]
