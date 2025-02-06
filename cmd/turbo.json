@@ -9,6 +9,7 @@
       "build": {
         "dependsOn": ["generate", "console#build"],
         "outputs": ["../zitadel"],
+        "inputs": ["$TURBO_DEFAULT$", "!../docs/**", "!../console/**"],
         "cache": true
       },
       "test": {
@@ -17,6 +18,7 @@
       "test:unit": {
         "dependsOn": ["generate", "build"],
         "outputs": ["../profile.cov"],
+        "inputs": ["$TURBO_DEFAULT$", "!../docs/**", "!../console/**"],
         "cache": false
       },
       "test:integration": {
