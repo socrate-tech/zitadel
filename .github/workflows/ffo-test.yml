@@ -25,7 +25,6 @@ jobs:
             runCmd: pnpm install && pnpm build lint core#test:unit
         - uses: devcontainers/ci@v0.3
           with:
-            imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-            runCmd: pnpm install && core#test:integration 
+            runCmd: pnpm install && pnpm core#test:integration 
