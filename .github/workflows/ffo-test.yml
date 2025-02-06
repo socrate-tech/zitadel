@@ -22,9 +22,9 @@ jobs:
             imageName: ghcr.io/zitadel/devcontainer
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-            runCmd: pnpm install && pnpm build lint core#test:unit
+            runCmd: pnpm install && turbo run build lint core#test:unit
         - uses: devcontainers/ci@v0.3
           with:
             cacheFrom: ghcr.io/zitadel/devcontainer
             push: always
-            runCmd: pnpm install && pnpm core#test:integration 
+            runCmd: pnpm install && turbo run core#test:integration 
