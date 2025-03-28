@@ -137,7 +137,7 @@ const (
 )
 
 func (a *OIDCApp) IsValid() bool {
-	if a.ClockSkew > time.Second*5 || a.ClockSkew < time.Second*0 || !a.OriginsValid() {
+	if a.ClockSkew > time.Second*300 || a.ClockSkew < time.Second*0 || !a.OriginsValid() {
 		return false
 	}
 	grantTypes := a.getRequiredGrantTypes()

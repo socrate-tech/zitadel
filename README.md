@@ -207,3 +207,43 @@ You can find our security policy [here](./SECURITY.md).
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See our [license](./LICENSE) for detailed information governing permissions and limitations on use.
+
+
+
+
+
+```bash
+VERSION=${VERSION:-"v2.71.4-6"} && \
+set -e && \
+make clean && \
+make core_dependencies && \
+make core_grpc_dependencies && \
+make core_api && \
+make core_static && \
+make core_assets && \
+make console_dependencies && \
+make console_client && \
+make console_build && \
+make console_move && \
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GO111MODULE=on go build -o zitadel -v \
+  -ldflags="-s -w \
+    -X 'github.com/zitadel/zitadel/cmd/build.commit=$(git rev-parse HEAD)' \
+    -X 'github.com/zitadel/zitadel/cmd/build.date=$(date '+%Y-%m-%dT%T%z')' \
+    -X 'github.com/zitadel/zitadel/cmd/build.version=${VERSION}'" && \
+DOCKER_BUILDKIT=1 docker build \
+  --no-cache \
+  --platform linux/amd64 \
+  --build-arg TARGETPLATFORM=linux/amd64 \
+  --build-arg BUILDPLATFORM=linux/amd64 \
+  --build-arg GOOS=linux \
+  --build-arg GOARCH=amd64 \
+  -f build/Dockerfile \
+  -t rg.fr-par.scw.cloud/cr-registry-dev/zitadel:${VERSION} \
+  -t rg.fr-par.scw.cloud/cr-registry-qa/zitadel:${VERSION} \
+  -t rg.fr-par.scw.cloud/cr-registry-staging/zitadel:${VERSION} \
+  -t rg.fr-par.scw.cloud/cr-registry-prod/zitadel:${VERSION} . && \
+docker push rg.fr-par.scw.cloud/cr-registry-dev/zitadel:${VERSION} && \
+docker push rg.fr-par.scw.cloud/cr-registry-qa/zitadel:${VERSION} && \
+docker push rg.fr-par.scw.cloud/cr-registry-staging/zitadel:${VERSION} && \
+docker push rg.fr-par.scw.cloud/cr-registry-prod/zitadel:${VERSION}
+```

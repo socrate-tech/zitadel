@@ -9785,7 +9785,7 @@ message AddOIDCAppRequest {
         }
     ];
     google.protobuf.Duration clock_skew = 15 [
-        (validate.rules).duration = {gte: {}, lte: {seconds: 5}},
+        (validate.rules).duration = {gte: {}, lte: {seconds: 300}},
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "Used to compensate time difference of servers. Duration added to the \"exp\" claim and subtracted from \"iat\", \"auth_time\" and \"nbf\" claims";
             example: "\"1s\"";
@@ -9976,7 +9976,7 @@ message UpdateOIDCAppConfigRequest {
         }
     ];
     google.protobuf.Duration clock_skew = 14 [
-        (validate.rules).duration = {gte: {}, lte: {seconds: 5}},
+        (validate.rules).duration = {gte: {}, lte: {seconds: 300}},
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "Used to compensate time difference of servers. Duration added to the \"exp\" claim and subtracted from \"iat\", \"auth_time\" and \"nbf\" claims";
             example: "\"1s\"";
