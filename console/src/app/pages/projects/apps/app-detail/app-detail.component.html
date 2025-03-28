@@ -356,7 +356,107 @@
           }
         }
 
+<<<<<<< HEAD
         @if (currentSetting.id === 'redirect-uris') {
+=======
+            <div class="btn-container">
+              <button
+                class="submit-button"
+                type="submit"
+                color="primary"
+                (click)="saveSAMLApp()"
+                [disabled]="samlForm.invalid || !canWrite"
+                mat-raised-button
+              >
+                {{ 'ACTIONS.SAVE' | translate }}
+              </button>
+            </div>
+          </cnsl-card>
+        </ng-container>
+
+        <ng-container *ngIf="currentSetting.id === 'token'">
+          <cnsl-card *ngIf="oidcTokenForm && app?.oidcConfig" title=" {{ 'APP.OIDC.TOKENSECTIONTITLE' | translate }}">
+            <form [formGroup]="oidcTokenForm" (ngSubmit)="saveOIDCApp()">
+              <cnsl-form-field class="app-formfield">
+                <cnsl-label>{{ 'APP.OIDC.TOKENTYPE' | translate }}</cnsl-label>
+                <mat-select formControlName="accessTokenType">
+                  <mat-option *ngFor="let type of oidcTokenTypes" [value]="type">
+                    {{ 'APP.OIDC.TOKENTYPE' + type | translate }}
+                  </mat-option>
+                </mat-select>
+              </cnsl-form-field>
+
+              <mat-checkbox
+                *ngIf="accessTokenType?.value === OIDCTokenType.OIDC_TOKEN_TYPE_JWT"
+                class="full-width"
+                style="margin-top: 1.5rem"
+                formControlName="accessTokenRoleAssertion"
+                color="primary"
+              >
+                {{ 'APP.OIDC.ACCESSTOKENROLEASSERTION' | translate }}</mat-checkbox
+              >
+
+              <cnsl-info-section class="full-width app-desc">
+                <span>{{ 'APP.OIDC.ACCESSTOKENROLEASSERTION_DESCRIPTION' | translate }}</span>
+              </cnsl-info-section>
+
+              <mat-checkbox
+                class="full-width"
+                style="margin-top: 1.5rem"
+                formControlName="idTokenRoleAssertion"
+                color="primary"
+              >
+                {{ 'APP.OIDC.IDTOKENROLEASSERTION' | translate }}</mat-checkbox
+              >
+              <cnsl-info-section class="full-width app-desc">
+                <span>{{ 'APP.OIDC.IDTOKENROLEASSERTION_DESCRIPTION' | translate }}</span>
+              </cnsl-info-section>
+
+              <mat-checkbox
+                class="full-width"
+                style="margin-top: 1.5rem"
+                formControlName="idTokenUserinfoAssertion"
+                color="primary"
+              >
+                {{ 'APP.OIDC.IDTOKENUSERINFOASSERTION' | translate }}</mat-checkbox
+              >
+              <cnsl-info-section class="full-width app-desc">
+                <span>{{ 'APP.OIDC.IDTOKENUSERINFOASSERTION_DESCRIPTION' | translate }}</span>
+              </cnsl-info-section>
+
+              <p class="clockskew-title cnsl-secondary-text">ClockSkew</p>
+              <!-- TODO: The 'tickInterval' property no longer exists -->
+              <mat-slider
+                color="primary"
+                class="clockskew-slider"
+                thumbLabel
+                [displayWith]="formatClockSkewLabel"
+                min="0"
+                [step]="1"
+                max="300"
+                ><input matSliderThumb formControlName="clockSkewSeconds" />
+              </mat-slider>
+              <cnsl-info-section class="full-width app-desc">
+                <span>{{ 'APP.OIDC.CLOCKSKEW' | translate }}</span>
+              </cnsl-info-section>
+
+              <div class="btn-container">
+                <button
+                  class="submit-button"
+                  type="submit"
+                  color="primary"
+                  [disabled]="oidcTokenForm.invalid || !canWrite"
+                  mat-raised-button
+                >
+                  {{ 'ACTIONS.SAVE' | translate }}
+                </button>
+              </div>
+            </form>
+          </cnsl-card>
+        </ng-container>
+
+        <ng-container *ngIf="currentSetting.id === 'redirect-uris'">
+>>>>>>> 78cd27531c (Fix - Changed max Clock Skew to 300 seconds)
           <cnsl-card title=" {{ 'APP.OIDC.REDIRECTSECTIONTITLE' | translate }}">
             @if (appType?.value === OIDCAppType.OIDC_APP_TYPE_NATIVE) {
               <cnsl-info-section>
