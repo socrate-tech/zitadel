@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"slices"
 	"strings"
+	"time"
 
 	crewjam_saml "github.com/crewjam/saml"
 	"github.com/crewjam/saml/samlsp"
@@ -303,6 +304,7 @@ func (l *Login) handleExternalLoginCallback(w http.ResponseWriter, r *http.Reque
 		session = oauth.NewSession(provider, data.Code, authReq.SelectedIDPConfigArgs)
 	case domain.IDPTypeOIDC:
 		provider, err := l.oidcProvider(r.Context(), identityProvider)
+		provider.RelyingParty.IDTokenVerifier().Offset = 30 * time.Second
 		if err != nil {
 			l.externalAuthCallbackFailed(w, r, authReq, nil, nil, err)
 			return
@@ -1061,7 +1063,7 @@ func (l *Login) oidcProvider(ctx context.Context, identityProvider *query.IDPTem
 	if err != nil {
 		return nil, err
 	}
-	opts := make([]openid.ProviderOpts, 1, 3)
+	opts := make([]openid.ProviderOpts, 1, 4)
 	opts[0] = openid.WithSelectAccount()
 	if identityProvider.OIDCIDPTemplate.IsIDTokenMapping {
 		opts = append(opts, openid.WithIDTokenMapping())
@@ -1071,6 +1073,10 @@ func (l *Login) oidcProvider(ctx context.Context, identityProvider *query.IDPTem
 		// we do not pass any cookie handler, since we store the verifier internally, rather than in a cookie
 		opts = append(opts, openid.WithRelyingPartyOption(rp.WithPKCE(nil)))
 	}
+
+	// if identityProvider.OIDCIDPTemplate.IssuedAtOffset != 0 {
+	// 	opts = append(opts, openid.WithRelyingPartyOption(rp.WithVerifierOpts(rp.WithIssuedAtOffset(identityProvider.OIDCIDPTemplate.IssuedAtOffset*time.Second))))
+	// }
 
 	return openid.New(identityProvider.Name,
 		identityProvider.OIDCIDPTemplate.Issuer,
