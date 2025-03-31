@@ -247,3 +247,42 @@ docker push rg.fr-par.scw.cloud/cr-registry-qa/zitadel:${VERSION} && \
 docker push rg.fr-par.scw.cloud/cr-registry-staging/zitadel:${VERSION} && \
 docker push rg.fr-par.scw.cloud/cr-registry-prod/zitadel:${VERSION}
 ```
+
+
+
+
+```bash
+VERSION=${VERSION:-"v2.71.4-7"} && \
+set -e && \
+make clean && \
+make core_dependencies && \
+make core_grpc_dependencies && \
+make core_api && \
+make core_static && \
+make core_assets && \
+make console_dependencies && \
+make console_client && \
+make console_build && \
+make console_move && \
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GO111MODULE=on go build -o zitadel -v \
+  -ldflags="-s -w \
+    -X 'github.com/zitadel/zitadel/cmd/build.commit=$(git rev-parse HEAD)' \
+    -X 'github.com/zitadel/zitadel/cmd/build.date=$(date '+%Y-%m-%dT%T%z')' \
+    -X 'github.com/zitadel/zitadel/cmd/build.version=v2.71.4-7'" && \
+DOCKER_BUILDKIT=1 docker build \
+  --no-cache \
+  --platform linux/amd64 \
+  --build-arg TARGETPLATFORM=linux/amd64 \
+  --build-arg BUILDPLATFORM=linux/amd64 \
+  --build-arg GOOS=linux \
+  --build-arg GOARCH=amd64 \
+  -f build/Dockerfile \
+  -t rg.fr-par.scw.cloud/cr-registry-dev/zitadel:v2.71.4-7 \
+  -t rg.fr-par.scw.cloud/cr-registry-qa/zitadel:v2.71.4-7 \
+  -t rg.fr-par.scw.cloud/cr-registry-staging/zitadel:v2.71.4-7 \
+  -t rg.fr-par.scw.cloud/cr-registry-prod/zitadel:v2.71.4-7 . && \
+docker push rg.fr-par.scw.cloud/cr-registry-dev/zitadel:v2.71.4-7 && \
+docker push rg.fr-par.scw.cloud/cr-registry-qa/zitadel:v2.71.4-7 && \
+docker push rg.fr-par.scw.cloud/cr-registry-staging/zitadel:v2.71.4-7 && \
+docker push rg.fr-par.scw.cloud/cr-registry-prod/zitadel:v2.71.4-7
+```
