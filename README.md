@@ -196,4 +196,36 @@ Security policy: [SECURITY.md](./SECURITY.md)
 
 ## License
 
-[AGPL-3.0](./LICENSE) — see [LICENSING.md](./LICENSING.md) for the full licensing policy, including Apache 2.0 and MIT exceptions for specific directories.
+[here](./LICENSE) are our exact licensing terms.
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See our [license](./LICENSE) for detailed information governing permissions and limitations on use.
+
+
+## Build
+
+### 1. Install dependencies
+
+```shell
+corepack enable
+pnpm install
+```
+
+### 2. Clean everything
+
+```shell
+pnpm nx clean
+```
+
+### 3. Pack everything for distribution
+
+```shell
+pnpm nx pack
+```
+
+### 4. Tag and push images
+
+```shell
+VERSION=v4.4.0-1 bash scripts/docker-tag-push.sh
+````
+>>>>>>> 3b5d3ac842 (Updated documentation and added script to tag and push images to Socrate repositories)
