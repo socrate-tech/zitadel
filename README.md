@@ -234,5 +234,5 @@ pnpm nx pack
 ### 4. Tag and push images
 
 ```shell
-VERSION=v4.4.0-1 bash scripts/docker-tag-push.sh
+VERSION=v4.6.6-1 bash scripts/docker-tag-push.sh
 ````
