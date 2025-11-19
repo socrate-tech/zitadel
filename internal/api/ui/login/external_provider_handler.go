@@ -3,6 +3,7 @@ package login
 import (
 	"context"
 	"errors"
+	"fmt"
 	"html/template"
 	"net/http"
 	"net/url"
@@ -466,6 +467,9 @@ func (l *Login) handleExternalUserAuthenticated(
 		l.renderError(w, r, authReq, err)
 		return
 	}
+
+	fmt.Printf("[SOCRATE][handleExternalUserAuthenticated] externalUser\n")
+
 	// check and fill in local linked user
 	externalErr := l.authRepo.CheckExternalUserLogin(setContext(r.Context(), ""), authReq.ID, authReq.AgentID, externalUser, domain.BrowserInfoFromRequest(r), false)
 	if externalErr != nil && !zerrors.IsNotFound(externalErr) {
@@ -490,11 +494,15 @@ func (l *Login) handleExternalUserAuthenticated(
 		l.renderError(w, r, authReq, err)
 		return
 	}
+	
+	fmt.Printf("[SOCRATE][handleExternalUserAuthenticated] authReq: %+v\n", authReq)
 	externalUser, externalUserChange, err := l.runPostExternalAuthenticationActions(externalUser, tokens(session), authReq, r, user, nil)
 	if err != nil {
 		l.renderError(w, r, authReq, err)
 		return
 	}
+	fmt.Printf("[SOCRATE][handleExternalUserAuthenticated] externalUser: %+v\n", externalUser)
+
 	// if a user was linked, we don't want to do any more renderings
 	var userLinked bool
 	// if action is done and no user linked then link or register
@@ -518,6 +526,7 @@ func (l *Login) handleExternalUserAuthenticated(
 			return
 		}
 	}
+	fmt.Printf("[SOCRATE][handleExternalUserAuthenticated] authReq: %+v\n", authReq)
 	callback(w, r, authReq)
 }
 

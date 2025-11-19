@@ -236,3 +236,10 @@ pnpm nx pack
 ```shell
 VERSION=v4.6.6-1 bash scripts/docker-tag-push.sh
 ````
+
+### 5. Tag and push local
+
+
+```shell
+VERSION=v4.6.6-2 bash scripts/docker-tag-push-local.sh
+````

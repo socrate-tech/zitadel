@@ -3,6 +3,7 @@ package login
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/dop251/goja"
@@ -28,6 +29,13 @@ func (l *Login) runPostExternalAuthenticationActions(
 ) (_ *domain.ExternalUser, userChanged bool, err error) {
 	ctx := httpRequest.Context()
 
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] ctx: %+v\n", ctx)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] user: %+v\n", user)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] tokens: %+v\n", tokens)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] authRequest: %+v\n", authRequest)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] httpRequest: %+v\n", httpRequest)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] idpUser: %+v\n", idpUser)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] authenticationError: %+v\n", authenticationError)
 	// use the request org (scopes or domain discovery) as default
 	resourceOwner := authRequest.RequestedOrgID
 	// if the user was already linked to an IDP and redirected to that, the requested org might be empty
@@ -46,12 +54,17 @@ func (l *Login) runPostExternalAuthenticationActions(
 	if resourceOwner == "" {
 		resourceOwner = authz.GetInstance(ctx).DefaultOrganisationID()
 	}
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] resourceOwner: %+v\n", resourceOwner)
 	triggerActions, err := l.query.GetActiveActionsByFlowAndTriggerType(ctx, domain.FlowTypeExternalAuthentication, domain.TriggerTypePostAuthentication, resourceOwner)
 	if err != nil {
+		logging.WithError(err).Error("could not get active actions by flow and trigger type")
 		return nil, false, err
 	}
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] triggerActions: %+v\n", triggerActions)
 
 	metadataList := object.MetadataListFromDomain(user.Metadatas)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] metadataList: %+v\n", metadataList)
+	fmt.Printf("[SOCRATE][runPostExternalAuthenticationActions] user: %+v\n", metadataList.AppendMetadataFunc)
 	apiFields := actions.WithAPIFields(
 		actions.SetFields("setFirstName", func(firstName string) {
 			user.FirstName = firstName

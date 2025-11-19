@@ -3,6 +3,7 @@ package login
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -73,6 +74,7 @@ func (l *Login) handleJWTExtraction(w http.ResponseWriter, r *http.Request, auth
 		l.renderError(w, r, authReq, err)
 		return
 	}
+	logging.WithFields("token", token).Info(fmt.Sprintf("[SOCRATE] jwt token: %+v", token))
 	provider, err := l.jwtProvider(identityProvider)
 	if err != nil {
 		if _, _, actionErr := l.runPostExternalAuthenticationActions(new(domain.ExternalUser), nil, authReq, r, nil, err); actionErr != nil {
@@ -81,6 +83,7 @@ func (l *Login) handleJWTExtraction(w http.ResponseWriter, r *http.Request, auth
 		l.renderError(w, r, authReq, err)
 		return
 	}
+	logging.WithFields("provider", provider).Info(fmt.Sprintf("[SOCRATE] jwt provider: %+v", provider))
 	session := jwt.NewSession(provider, &oidc.Tokens[*oidc.IDTokenClaims]{IDToken: token, Token: &oauth2.Token{}})
 	user, err := session.FetchUser(r.Context())
 	if err != nil {
@@ -90,6 +93,7 @@ func (l *Login) handleJWTExtraction(w http.ResponseWriter, r *http.Request, auth
 		l.renderError(w, r, authReq, err)
 		return
 	}
+	logging.WithFields("user", user).Info(fmt.Sprintf("[SOCRATE] user: %+v", user))
 	l.handleExternalUserAuthenticated(w, r, authReq, identityProvider, session, user, l.jwtCallback)
 }
 
