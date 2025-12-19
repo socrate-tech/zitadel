@@ -207,6 +207,13 @@ See our [license](./LICENSE) for detailed information governing permissions and 
 ### 1. Install dependencies
 
 ```shell
+rm -rf node_modules
+rm -rf .artifacts/*
+rm -rf apps/login/.next
+rm -rf apps/login/node_modules
+```
+
+```shell
 corepack enable
 pnpm install
 ```
@@ -226,6 +233,6 @@ pnpm nx pack
 ### 4. Tag and push images
 
 ```shell
-VERSION=v4.4.0-1 bash scripts/docker-tag-push.sh
+VERSION=v4.7.6-1 bash scripts/docker-tag-push.sh
 ````
 >>>>>>> 3b5d3ac842 (Updated documentation and added script to tag and push images to Socrate repositories)
