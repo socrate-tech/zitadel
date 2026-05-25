@@ -293,16 +293,30 @@ discover_version() {
 }
 
 confirm() {
-  printf "\n\033[1m-> Release %s to %s registry. Continue? [y/N]\033[0m " \
-    "$RESOLVED_VERSION" "$TARGET"
-  if $YES || $DRY_RUN; then
-    printf "(auto-confirmed: %s)\n\n" "$([[ $YES == true ]] && echo --yes || echo --dry-run)"
-    return 0
-  fi
-  read -r reply
-  case "$reply" in
-    y|Y|yes|YES) ;;
-    *) fail "Aborted by user." ;;
+  case "$TARGET" in
+    local)
+      printf "\n\033[36m▶\033[0m Pushing \033[1m%s\033[0m to %s (no prompt — local smoke-test target)\n\n" \
+        "$RESOLVED_VERSION" "$LOCAL_REGISTRY"
+      return 0
+      ;;
+    scaleway)
+      printf "\n\033[1m\033[33m─── Scaleway release ───\033[0m\n"
+      printf "  Version : \033[1m%s\033[0m\n" "$RESOLVED_VERSION"
+      printf "  Targets : " ; printf "rg.fr-par.scw.cloud/%s/zitadel " "${SCALEWAY_NAMESPACES[@]}" ; printf "\n"
+      printf "  Notes   : tags are persistent. Flux can promote this image once published.\n"
+      printf "\n\033[1mProceed with push? [y/N]\033[0m "
+
+      if $YES || $DRY_RUN; then
+        printf "(auto-confirmed: %s)\n\n" "$([[ $YES == true ]] && echo --yes || echo --dry-run)"
+        return 0
+      fi
+
+      read -r reply
+      case "$reply" in
+        y|Y|yes|YES) ;;
+        *) fail "Aborted by user." ;;
+      esac
+      ;;
   esac
 }
 
@@ -311,20 +325,34 @@ do_reset() {
     say "Skipping workspace reset (--skip-reset)."
     return
   fi
-  say "Resetting workspace"
-  run "rm -rf node_modules .artifacts/* apps/login/.next apps/login/node_modules"
+  say "Resetting workspace (all workspace node_modules + caches)"
+  # find prunes each match before descending: avoids recursing into deleted trees.
+  # Cleans every workspace under packages/, apps/, tests/, deploy/compose — not
+  # just the root and apps/login. Stale per-workspace .bin shims (e.g.
+  # @bufbuild/buf hardcoded to a previous patch branch's version) break the
+  # build after a branch switch otherwise.
+  run "find . -name node_modules -type d -prune -exec rm -rf {} +"
+  run "rm -rf .nx .artifacts/* apps/login/.next"
 }
 
 do_install() {
   say "Installing dependencies"
+  # Match upstream CI exactly (see .github/workflows/lint_test_build.yml):
+  # a single root-level frozen install handles every workspace, including
+  # console/ and apps/login/. A subsequent --filter install leaves other
+  # workspaces missing their node_modules.
   run "corepack enable"
-  run "pnpm install"
-  run "pnpm --filter ./apps/login install"
+  run "pnpm install --frozen-lockfile"
 }
 
 do_build() {
   say "Building (pnpm nx pack)"
-  run "pnpm nx clean"
+  # NOTE: do NOT run "pnpm nx clean" here. Nx auto-infers each workspace's
+  # package.json scripts as targets, so `nx clean` invokes the per-workspace
+  # clean scripts in parallel. console/ and apps/login/ both have clean =
+  # "rm -rf ... node_modules", which would wipe their installs and leave
+  # `ng` / `next` unavailable. Our own do_reset() already gave us a clean
+  # slate before install; upstream CI goes straight install -> pack too.
   run "pnpm nx pack"
 }
 
@@ -376,9 +404,9 @@ EOF
 
 preflight
 discover_version
-confirm
 do_reset
 do_install
 do_build
+confirm
 do_push
 summary
