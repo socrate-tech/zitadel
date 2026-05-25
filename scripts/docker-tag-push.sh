@@ -21,7 +21,6 @@ DOCKER_BUILDKIT=1 docker build \
   -t rg.fr-par.scw.cloud/cr-registry-prod/zitadel:${VERSION} .
 
 # Push to all registries
-export VERSION="v4.7.6-1"
 docker push rg.fr-par.scw.cloud/cr-registry-dev/zitadel:${VERSION}
 docker push rg.fr-par.scw.cloud/cr-registry-qa/zitadel:${VERSION}
 docker push rg.fr-par.scw.cloud/cr-registry-staging/zitadel:${VERSION}
